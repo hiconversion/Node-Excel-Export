@@ -6,14 +6,15 @@ describe('Simple Excel xlsx Export', function() {
 	describe('Export', function() {
 		it('returns xlsx', function() {
 			var conf = {};
-			conf.name = 'xxxxxx';
+			conf.name = 'xxx xxx';
 			conf.cols = [{
 				caption: 'string',
 				type: 'string'
 			},
 			{
-				caption: 'date',
-				type: 'date'
+				caption: 'date width 50',
+				type: 'date',
+				width: 30
 			},
 			{
 				caption: 'bool',
@@ -35,8 +36,9 @@ describe('Simple Excel xlsx Export', function() {
 			var confs = [];
 			var conf = {};
 			conf.cols = [{
-				caption: 'string',
-				type: 'string'
+				caption: 'string width 50',
+				type: 'string',
+				width: 50
 			},
 			{
 				caption: 'date',
@@ -53,7 +55,7 @@ describe('Simple Excel xlsx Export', function() {
 			conf.rows = [['hahai', (new Date(Date.UTC(2013, 4, 1))).oaDate(), true, 3.14], ["e", (new Date(2012, 4, 1)).oaDate(), false, 2.7182], ["M&M<>'", (new Date(Date.UTC(2013, 6, 9))).oaDate(), false, 1.2], ["null", null, null, null]];
 			for (var i = 0; i < 3; i++) {
 				conf = JSON.parse(JSON.stringify(conf));   //clone
-        conf.name = 'sheet'+i;
+        conf.name = 'sheet '+i;
 				confs.push(conf);
 			}
 			var result = nodeExcel.execute(confs),
