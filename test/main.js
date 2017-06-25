@@ -1,8 +1,24 @@
 // test/main.js
+var fs = require('fs');
 var should = require('should');
 var nodeExcel = require('../index');
 
+const TEST_PATH = '.tmp/';
+
 describe('Simple Excel xlsx Export', function() {
+
+	before(function() {
+		try {
+      fs.mkdirSync(TEST_PATH);
+		}
+		catch(e) {
+			// ignore EEXIST
+			if (e.code!=='EEXIST') {
+				throw e;
+			}
+		}
+	});
+
 	describe('Export', function() {
 		it('returns xlsx', function() {
 			var conf = {};
@@ -29,8 +45,7 @@ describe('Simple Excel xlsx Export', function() {
 			var result = nodeExcel.execute(conf);
 			//console.log(result);
 
-			var fs = require('fs');
-			fs.writeFileSync('single.xlsx', result, 'binary');
+			fs.writeFileSync(TEST_PATH+'single.xlsx', result, 'binary');
 		});
 		it('returns multisheet xlsx', function() {
 			var confs = [];
@@ -58,9 +73,8 @@ describe('Simple Excel xlsx Export', function() {
         conf.name = 'sheet '+i;
 				confs.push(conf);
 			}
-			var result = nodeExcel.execute(confs),
-			fs = require('fs');
-			fs.writeFileSync('multi.xlsx', result, 'binary');
+			var result = nodeExcel.execute(confs);
+			fs.writeFileSync(TEST_PATH+'multi.xlsx', result, 'binary');
 		})
 	});
 });
