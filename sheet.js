@@ -64,6 +64,7 @@ Sheet.prototype.generate = function () {
       cellType = cols[j].type;
       if (typeof cols[j].beforeCellWrite === 'function') {
         var e = {
+          colNum: j,
           rowNum: currRow,
           styleIndex: null,
           cellType: cellType
