@@ -72,8 +72,11 @@ Sheet.prototype.generate = function () {
         cellData = cols[j].beforeCellWrite(r, cellData, e);
         styleIndex = e.styleIndex || styleIndex;
         cellType = e.cellType;
-        delete e;
       }
+
+      // do not add null or undefined cells
+      if (cellData===undefined || cellData===null) continue;
+
       switch (cellType) {
         case 'number':
           row += addNumberCell(getColumnLetter(j + 1) + currRow, cellData, styleIndex);
